@@ -1,9 +1,13 @@
+li {
+  list-style-type: none;
+}
+
 .App {
   background-color: #282c34;
   min-height: 100vh;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(20, 1fr);
+  grid-template-rows: 2fr 1fr 5fr;
   align-items: center;
   justify-content: center;
   /* font-size: calc(10px + 2vmin); */
@@ -13,21 +17,59 @@
 
 .App-header {
   grid-column: 1/11;
-  grid-row: 1/4;
+  grid-row: 1/2;
   background-color: #111;
   height: 100%;
 }
 
 .App-input {
   grid-column: 1/11;
-  grid-row: 4/5;
+  grid-row: 2/3;
   background-color: #555;
   height: 100%;
 }
 
 .App-history {
   grid-column: 1/11;
-  grid-row: 5/21;
+  grid-row: 3/4;
   background-color: #8d8d8d;
+  height: 100%;
+}
+
+.budget-container {
+  /* border: 1px solid red; */
+  height: 100%;
+}
+
+.inputs-container {
+  /* border: 1px solid blue; */
+  font-size: 2rem;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inputs-container > * {
+  /* border: 1px solid red; */
+  margin-right: 1rem;
+}
+
+.history-container {
+  /* border: 1px solid green; */
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.income-history {
+  /* border: 2px solid cyan; */
+  width: 50%;
+  height: 100%;
+}
+
+.expenses-history {
+  /* border: 2px solid magenta; */
+  width: 50%;
   height: 100%;
 }
