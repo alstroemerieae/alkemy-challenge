@@ -1,25 +1,29 @@
-const History = () => {
+const History = ({income, expense, index}) => {
   return (
     <div className="history-container">
       <div className="income-history">
         <h2>Ingresos</h2>
-        <li>
-          <ul>Item 1</ul>
-          <ul>Item 2</ul>
-          <ul>Item 3</ul>
-          <ul>Item 4</ul>
-          <ul>Item 5</ul>
-          <ul>Item 6</ul>
-          <ul>Item 7</ul>
-        </li>
+        {income.map((item) => (
+          <div className="income-item" key={index}>
+            <p>${ item.amount }</p>
+            <p>{ item.concept }</p>
+            <p>{ item.date }</p>
+            <button className="button">Modificar</button>
+            <button className="button">Eliminar</button>
+          </div>
+        ))}
       </div>
       <div className="expenses-history">
         <h2>Egresos</h2>
-        <li>
-          <ul>Item 8</ul>
-          <ul>Item 9</ul>
-          <ul>Item 10</ul>
-        </li>
+        {expense.map((item) => (
+          <div className="expense-item" key={index}>
+            <p>${ item.amount }</p>
+            <p>{ item.concept }</p>
+            <p>{ item.date }</p>
+            <button className="button">Modificar</button>
+            <button className="button">Eliminar</button>
+          </div>
+        ))}
       </div>
     </div>
   );
