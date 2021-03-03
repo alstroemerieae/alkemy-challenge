@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">
       <div className="App-header">
-        <Header />
+        <Header income={income} expense={expense}/>
       </div>
       <div className="App-input">
         <Inputs income={income} setIncome={setIncome} expense={expense} setExpense={setExpense}/>
