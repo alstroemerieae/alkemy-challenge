@@ -1,15 +1,9 @@
 const Header = ({income, expense}) => {
-  let totalIncome = 0
-  income.map((item) => (
-    totalIncome = totalIncome + parseInt(item.amount)
-    // console.log(`Income total is ${totalIncome}`)
-  ))
-  let totalExpense = 0
-  expense.map((item) => (
-    totalExpense = totalExpense + parseInt(item.amount)
-    // console.log(`Income total is ${totalExpense}`)
-  ))
+  let totalIncome = income.reduce((sum, current) => sum + parseInt(current.amount), 0);
+  let totalExpense = expense.reduce((sum, current) => sum + parseInt(current.amount), 0);
+
   let currentBalance = totalIncome - totalExpense;
+  console.log(totalIncome, totalExpense, currentBalance)
 
   return (
     <div className="budget-container">
