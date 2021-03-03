@@ -9,6 +9,16 @@ function App() {
   const [income, setIncome] = useState([])
   const [expense, setExpense] = useState([])
 
+  const handleDeleteIncome = (incomeID) => {
+    const newIncome = income.filter(item => item.id !== incomeID)
+    setIncome(newIncome)
+  }
+
+  const handleDeleteExpense = (expenseID) => {
+    const newExpense = expense.filter(item => item.id !== expenseID)
+    setExpense(newExpense)
+  }
+
   return (
     <div className="App">
       <div className="App-header">
@@ -18,7 +28,7 @@ function App() {
         <Inputs income={income} setIncome={setIncome} expense={expense} setExpense={setExpense}/>
       </div>
       <div className="App-history">
-        <History income={income} expense={expense}/>
+        <History income={income} expense={expense} handleDeleteIncome={handleDeleteIncome} handleDeleteExpense={handleDeleteExpense}/>
       </div>
     </div>
   );

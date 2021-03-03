@@ -1,27 +1,27 @@
-const History = ({income, expense, index}) => {
+const History = ({income, expense, handleDeleteIncome, handleDeleteExpense}) => {
   return (
     <div className="history-container">
       <div className="income-history">
         <h2>Ingresos</h2>
-        {income.map(item => (
-          <div className="income-item" key={ Math.random().toString(36).substr(2, 9) }>
-            <p>${ item.amount }</p>
-            <p>{ item.concept }</p>
-            <p>{ item.date }</p>
+        {income.map((incomeItem) => (
+          <div className="income-item" key={incomeItem.id}>
+            <p>${ incomeItem.amount }</p>
+            <p>{ incomeItem.concept }</p>
+            <p>{ incomeItem.date }</p>
             <button className="button">Modificar</button>
-            <button className="button">Eliminar</button>
+            <button className="button" onClick={() => handleDeleteIncome(incomeItem.id)}>Eliminar</button>
           </div>
         ))}
       </div>
       <div className="expenses-history">
         <h2>Egresos</h2>
-        {expense.map(item => (
-          <div className="expense-item" key={ Math.random().toString(36).substr(2, 9) }>
-            <p>${ item.amount }</p>
-            <p>{ item.concept }</p>
-            <p>{ item.date }</p>
+        {expense.map(expenseItem => (
+          <div className="expense-item" key={expenseItem.id}>
+            <p>${ expenseItem.amount }</p>
+            <p>{ expenseItem.concept }</p>
+            <p>{ expenseItem.date }</p>
             <button className="button">Modificar</button>
-            <button className="button">Eliminar</button>
+            <button className="button" onClick={() => handleDeleteExpense(expenseItem.id)}>Eliminar</button>
           </div>
         ))}
       </div>

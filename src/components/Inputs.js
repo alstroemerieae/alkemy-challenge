@@ -18,7 +18,8 @@ const Inputs = ({income, setIncome, expense, setExpense}) => {
         concept: concept,
         amount: amount,
         date: date,
-        operation: operation
+        operation: operation,
+        id: `${date}_${concept}_${amount}_${operation}`
       }
       if (income.length === 10) {
         console.log("Income array is equal to 10")
@@ -30,7 +31,8 @@ const Inputs = ({income, setIncome, expense, setExpense}) => {
         concept: concept,
         amount: amount,
         date: date,
-        operation: operation
+        operation: operation,
+        id: `${date}_${concept}_${amount}_${operation}`
       }
       if (expense.length === 10) {
         console.log("Expense array is equal to 10")
