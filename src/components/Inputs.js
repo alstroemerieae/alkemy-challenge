@@ -8,9 +8,18 @@ const Inputs = ({income, setIncome, expense, setExpense}) => {
   const [type, setType] = useState("income")
   console.log(expense)
   console.log(income)
+  console.log(`Income length outside handleSubmit: ${income.length}`)
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (income.length >= 10) {
+      console.log("Income array is equal to 10")
+      income.shift()
+    }
+    if (expense.length >= 10) {
+      console.log("Expense array is equal to 10")
+      expense.shift()
+    }
     // This will create a new object with the properties that are passed in from the input values
     if (type === "income") {
       const newIncome = {
@@ -20,7 +29,7 @@ const Inputs = ({income, setIncome, expense, setExpense}) => {
         type: type
       }
       setIncome([...income, newIncome])
-    } else {
+    } else if((type === "expense")) {
       const newExpense = {
         concept: concept,
         amount: amount,
@@ -28,18 +37,21 @@ const Inputs = ({income, setIncome, expense, setExpense}) => {
         type: type
       }
       setExpense([...expense, newExpense])
+    } else {
+      console.log("Error on new item")
     }
-    // This will clear the inputs
+    // This will clear the inputs after being submitted
     setConcept("")
     setAmount("")
     setDate("")
-    setType("")
+    setType("income")
     // Console logs
     // console.log(`Concepto: ${concept}`)
     // console.log(`Monto: ${amount}`)
     // console.log(`Fecha: ${date}`)
     // console.log(`Tipo: ${type}`)
     // console.log(income[0].amount)
+    console.log(`Income length inside handleSubmit: ${income.length}`)
   }
 
   return (
