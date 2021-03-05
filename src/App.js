@@ -20,7 +20,6 @@ function App() {
   }
 
   const handleUpdateIncome = (item) => {
-    console.log(item)
     let newConcept = prompt("Please enter your the new concept:", `${item.concept}`);
     let newAmount = prompt("Please enter your the new amount:", `${item.amount}`);
     let newDate = prompt("Please enter your the new date:", `${item.date}`);
@@ -30,15 +29,18 @@ function App() {
       amount: newAmount,
       date: newDate,
       operation: item.operation,
-      id: item.id
+      id: `${newDate}_${newConcept}_${newAmount}_${item.operation}`
     }
-    
-    console.log(updateIncome)
-    setIncome([updateIncome]);
+    console.log(income)
+    console.log(item)
+    let indexToRemove = income.indexOf(item);
+    console.log(indexToRemove)
+    const newIncomeArray = [...income.slice(0, indexToRemove), ...income.slice(indexToRemove + 1)]; // (!)
+    console.log(newIncomeArray)
+    setIncome([...newIncomeArray, updateIncome])
   }
 
   const handleUpdateExpense = (item) => {
-    console.log(item)
     let newConcept = prompt("Please enter your the new concept:", `${item.concept}`);
     let newAmount = prompt("Please enter your the new amount:", `${item.amount}`);
     let newDate = prompt("Please enter your the new date:", `${item.date}`);
@@ -48,11 +50,15 @@ function App() {
       amount: newAmount,
       date: newDate,
       operation: item.operation,
-      id: item.id
+      id: `${newDate}_${newConcept}_${newAmount}_${item.operation}`
     }
-    
-    console.log(updateExpense)
-    setExpense([updateExpense]);
+    console.log(expense)
+    console.log(item)
+    let indexToRemove = expense.indexOf(item);
+    console.log(indexToRemove)
+    const newExpenseArray = [...expense.slice(0, indexToRemove), ...expense.slice(indexToRemove + 1)]; // (!)
+    console.log(newExpenseArray)
+    setExpense([...newExpenseArray, updateExpense])
   }
 
   return (
