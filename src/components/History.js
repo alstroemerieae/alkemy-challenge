@@ -1,4 +1,4 @@
-const History = ({income, expense, handleDeleteIncome, handleDeleteExpense, handleUpdateIncome, handleUpdateExpense}) => {
+const History = ({income, expense, handleDelete, handleUpdate}) => {
   return (
     <div className="history-container">
       <div className="income-history">
@@ -8,8 +8,8 @@ const History = ({income, expense, handleDeleteIncome, handleDeleteExpense, hand
             <p>${ incomeItem.amount }</p>
             <p>{ incomeItem.concept }</p>
             <p>{ incomeItem.date }</p>
-            <button className="button" onClick={() => handleUpdateIncome(incomeItem)}>Modificar</button>
-            <button className="button" onClick={() => handleDeleteIncome(incomeItem.id)}>Eliminar</button>
+            <button className="button" onClick={() => handleUpdate(income, incomeItem)}>Modificar</button>
+            <button className="button" onClick={() => handleDelete(income, incomeItem.id)}>Eliminar</button>
           </div>
         ))}
       </div>
@@ -20,8 +20,8 @@ const History = ({income, expense, handleDeleteIncome, handleDeleteExpense, hand
             <p>${ expenseItem.amount }</p>
             <p>{ expenseItem.concept }</p>
             <p>{ expenseItem.date }</p>
-            <button className="button" onClick={() => handleUpdateExpense(expenseItem)}>Modificar</button>
-            <button className="button" onClick={() => handleDeleteExpense(expenseItem.id)}>Eliminar</button>
+            <button className="button" onClick={() => handleUpdate(expense, expenseItem)}>Modificar</button>
+            <button className="button" onClick={() => handleDelete(expense, expenseItem.id)}>Eliminar</button>
           </div>
         ))}
       </div>

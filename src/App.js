@@ -4,73 +4,124 @@ import Inputs from './components/Inputs'
 import History from './components/History'
 import {useState} from 'react'
 
-
 function App() {
+  // Arrays
   const [income, setIncome] = useState([])
   const [expense, setExpense] = useState([])
 
-  const handleDeleteIncome = (incomeID) => {
-    const newIncome = income.filter(item => item.id !== incomeID)
-    setIncome(newIncome)
+  // Variables
+  const [concept, setConcept] = useState("")
+  const [amount, setAmount] = useState(0)
+  const [date, setDate] = useState("")
+  const [operation, setOperation] = useState("")
+
+  // Functions
+  function checkLength(array) {
+    if (array.length === 10) {
+      array.shift()
+    }
   }
 
-  const handleDeleteExpense = (expenseID) => {
-    const newExpense = expense.filter(item => item.id !== expenseID)
-    setExpense(newExpense)
+  // Handlers
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Check type of operation and create a new object in the corresponding array
+    switch (operation) {
+      case "income":
+        const newIncome = {
+          concept: concept,
+          amount: amount,
+          date: date,
+          operation: operation,
+          id: `${date}_${concept}_${amount}_${operation}`
+        }
+        checkLength(income);
+        setIncome([...income, newIncome])
+        break;
+      case "expense":
+        const newExpense = {
+          concept: concept,
+          amount: amount,
+          date: date,
+          operation: operation,
+          id: `${date}_${concept}_${amount}_${operation}`
+        }
+        checkLength(expense);
+        setExpense([...expense, newExpense])
+        break;
+      default:
+        window.alert("Error")
+    }
+    // Clear the inputs after being submitted
+    setConcept("")
+    setAmount("")
+    setDate("")
+    // Set operation input to be the same as the previous operation
+    setOperation(operation)
   }
 
-  const handleUpdateIncome = (item) => {
+  const handleDelete = (array, itemID) => {
+    // Create filtered array without the item that matches the itemID
+    const filteredArray = array.filter(item => item.id !== itemID) // (!)
+    // Check which array to send the filtered array to
+    if (array === income) {
+      setIncome(filteredArray)
+    } else {
+      setExpense(filteredArray)
+    }
+  }
+
+  const handleUpdate = (array, item) => {
+    // Prompt input values
     let newConcept = prompt("Please enter your the new concept:", `${item.concept}`);
     let newAmount = prompt("Please enter your the new amount:", `${item.amount}`);
     let newDate = prompt("Please enter your the new date:", `${item.date}`);
-    
-    let updateIncome = {
+    // Create a new object with the prompt input values given
+    let updateItem = {
       concept: newConcept,
       amount: newAmount,
       date: newDate,
       operation: item.operation,
       id: `${newDate}_${newConcept}_${newAmount}_${item.operation}`
     }
-    console.log(income)
-    console.log(item)
-    let indexToRemove = income.indexOf(item);
-    console.log(indexToRemove)
-    const newIncomeArray = [...income.slice(0, indexToRemove), ...income.slice(indexToRemove + 1)]; // (!)
-    console.log(newIncomeArray)
-    setIncome([...newIncomeArray, updateIncome])
-  }
-
-  const handleUpdateExpense = (item) => {
-    let newConcept = prompt("Please enter your the new concept:", `${item.concept}`);
-    let newAmount = prompt("Please enter your the new amount:", `${item.amount}`);
-    let newDate = prompt("Please enter your the new date:", `${item.date}`);
-    
-    let updateExpense = {
-      concept: newConcept,
-      amount: newAmount,
-      date: newDate,
-      operation: item.operation,
-      id: `${newDate}_${newConcept}_${newAmount}_${item.operation}`
+    // Delete the current item from the array (so the updated item can take its place)
+    let indexToRemove = array.indexOf(item);
+    const newArray = [...array.slice(0, indexToRemove), ...array.slice(indexToRemove + 1)]; // (!)
+    // Check which array to send the updated item to
+    if (array === income) {
+      setIncome([...newArray, updateItem])
+    } else {
+      setExpense([...newArray, updateItem])
     }
-    console.log(expense)
-    console.log(item)
-    let indexToRemove = expense.indexOf(item);
-    console.log(indexToRemove)
-    const newExpenseArray = [...expense.slice(0, indexToRemove), ...expense.slice(indexToRemove + 1)]; // (!)
-    console.log(newExpenseArray)
-    setExpense([...newExpenseArray, updateExpense])
   }
 
   return (
     <div className="App">
       <div className="App-header">
-        <Header income={income} expense={expense}/>
+        <Header
+          income={income}
+          expense={expense}
+        />
       </div>
       <div className="App-input">
-        <Inputs income={income} setIncome={setIncome} expense={expense} setExpense={setExpense}/>
+        <Inputs
+          concept={concept}
+          setConcept={setConcept}
+          amount={amount}
+          setAmount={setAmount}
+          date={date}
+          setDate={setDate}
+          setOperation={setOperation}
+          handleSubmit={handleSubmit}
+        />
       </div>
       <div className="App-history">
-        <History income={income} expense={expense} handleDeleteIncome={handleDeleteIncome} handleDeleteExpense={handleDeleteExpense} handleUpdateIncome={handleUpdateIncome} handleUpdateExpense={handleUpdateExpense}/>
+        <History
+          income={income}
+          expense={expense}
+          handleDelete={handleDelete}
+          handleUpdate={handleUpdate}
+        />
       </div>
     </div>
   );
