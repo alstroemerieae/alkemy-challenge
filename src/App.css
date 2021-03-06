@@ -1,70 +1,186 @@
-li {
-  list-style-type: none;
+/* 
+======================================================
+00. Imports
+01. Global variables & Utility classes
+02. App container
+  02.a App Header
+  02.b App Inputs
+  02.c App History
+====================================================== 
+*/
+
+/* 00. Imports */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+
+/* 01. Global variables & Utility classes */
+:root {
+  --primary-color:#3373eb;
+  --income-color: #62e980;
+  --expense-color: #ff4c4c;
+  --lighter-color: #f3f3f3;
+  --light-color: #adadad;
+  --gray-color: #727272;
+  --dark-color: #282c34;
+  --darker-color: #111;
 }
 
-.App {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: 2fr 1fr 5fr;
-  align-items: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: calc(12px + (22 - 18) * ((100vw - 320px) / (1600 - 300))) !important;
+}
+
+body {
+  display: flex;
   justify-content: center;
-  /* font-size: calc(10px + 2vmin); */
-  color: white;
-  text-align: center;
+  align-items: center;
+
+  font-family: 'Lato', sans-serif;
+  font-size: 1.5rem;
+  background-color: var(--primary-color);
 }
 
-.App-header {
-  grid-column: 1/11;
-  grid-row: 1/2;
-  background-color: #111;
+input,
+select {
+  width: 8rem;
+
+  padding: 3px 5px 4px;
+
+  color: var(--light-color);
+}
+
+label {
+  margin-bottom: .5rem;
+
+  font-size: 1.25rem;
+}
+
+button {
+  padding: .75rem;
+  border: none;
+  color: var(--lighter-color);
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.btn-add {
+  background: var(--income-color);
+  color: var(--darker-color);
+}
+
+.btn-update {
+  background: var(--primary-color);
+}
+
+.btn-delete {
+  background: var(--expense-color);
+}
+
+
+
+/* Set flex display and height for all app components */
+.App-header,
+.App-input,
+.App-history {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   height: 100%;
 }
 
+
+/* 02. App container */
+.App {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: auto auto 1fr;
+  align-items: center;
+  justify-content: center;
+  
+  min-height: 100vh;
+  width: 100vw;
+
+  text-align: center;
+  color: var(--lighter-color);
+}
+
+
+/* 02.a App Header */
+.App-header {
+  grid-column: 5/7;
+  grid-row: 1/2;
+
+  flex-direction: column;
+
+  background: var(--lighter-color);
+  color: var(--darker-color);
+}
+
+.App-header__current-balance {
+  margin: 1rem 0;
+}
+
+.App-header__current-balance--value {
+  font-size: 3rem;
+}
+
+.App-header__total-income,
+.App-header__total-expense {
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+
+  margin-bottom: 1rem;
+  padding: 0 2rem;
+}
+
+.App-header__total-income--value {
+  color: var(--income-color);
+}
+
+.App-header__total-expense--value {
+  color: var(--expense-color);
+}
+
+/* 02.b App Inputs */
 .App-input {
   grid-column: 1/11;
   grid-row: 2/3;
-  background-color: #555;
-  height: 100%;
+
+  align-items: flex-end;
+
+  padding: 1rem 0;
+
+  background: var(--dark-color);
 }
 
+.App-input__group {
+  display: flex;
+  flex-direction: column;
+
+  margin: 0 2rem;
+}
+
+
+/* 02.c App History */
 .App-history {
   grid-column: 1/11;
   grid-row: 3/4;
-  background-color: #8d8d8d;
-  height: 100%;
+
+  background: var(--darker-color);
 }
 
-.budget-container {
-  /* border: 1px solid red; */
-  height: 100%;
-}
-
-.inputs-container {
-  /* border: 1px solid blue; */
-  font-size: 1.5rem;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* .inputs-container > * {
-  border: 1px solid red;
-  margin-right: 1rem;
-} */
-
-.history-container {
-  /* border: 1px solid green; */
-  display: flex;
-  justify-content: center;
-  height: 100%;
-}
-
-.income-history,
-.expenses-history {
-  /* border: 2px solid cyan; */
+.App-history__income,
+.App-history__expense {
   width: 50%;
   height: 100%;
 
@@ -72,46 +188,48 @@ li {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+
+  margin: 0 1rem;
 }
 
-.expenses-history {
-  /* border: 2px solid magenta; */
+.App-history__income--title,
+.App-history__expense--title {
+  margin: 1rem 0;
 }
 
-.input-group {
-  /* border: 1px solid red; */
-  display: flex;
-  flex-direction: column;
-  margin: 0 2rem;
+.App-history__income--title {
+  color: var(--income-color);
 }
 
-.input-group > * {
+.App-history__expense--title {
+  color: var(--expense-color);
+}
+
+.App-history__income-item,
+.App-history__expense-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr .75fr .75fr;
+
+  width: 100%;
+
   margin-bottom: .5rem;
+
+  font-size: 1.25rem;
+  color: var(--darker-color);
+  background-color: var(--lighter-color);
 }
 
-#add-button {
-  padding: 1rem;
+.App-history__income-item {
+  border-left: 5px solid var(--income-color);
 }
 
-.income-item,
-.expense-item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #e9e9e9;
-  color: #111;
-  padding: 0 1rem;
+.App-history__expense-item {
+  border-left: 5px solid var(--expense-color);
 }
 
-.income-item > *,
-.expense-item > * {
-  /* border: 1px solid red; */
-  margin-right: 1rem;
-}
-
-.button {
-  /* width: 2rem;
-  height: 1rem; */
-  /* height: .5rem; */
-  padding: .5rem;
+.App-history__income-item > p,
+.App-history__expense-item > p {
+  padding: .5rem 1rem;
+  border-right: 1px solid var(--light-color);
+  text-align: start;
 }

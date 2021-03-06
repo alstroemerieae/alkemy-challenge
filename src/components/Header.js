@@ -5,11 +5,22 @@ const Header = ({income, expense}) => {
   let currentBalance = totalIncome - totalExpense;
 
   return (
-    <div className="budget-container">
-      <h2> Balance actual:</h2>
-      <h1>{currentBalance}</h1>
-      <h3> Ingresos: +{totalIncome} </h3>
-      <h3> Egresos: -{totalExpense} </h3>
+    <div className="App-header">
+      {/* Current Balance */}
+      <div className="App-header__current-balance">
+        <div className="App-header__current-balance--title">Balance actual:</div>
+        <div className="App-header__current-balance--value">{currentBalance}</div>
+      </div>
+      {/* Total income */}
+      <div className="App-header__total-income">
+        <div className="App-header__total-income--title">Ingresos:</div>
+        <div className="App-header__total-income--value">+{totalIncome}</div>
+      </div>
+      {/* Total expense */}
+      <div className="App-header__total-expense">
+        <div className="App-header__total-expense--title">Egresos:</div>
+        <div className="App-header__total-expense--value">-{totalExpense}</div>
+      </div>
     </div>
   );
 }

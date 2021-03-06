@@ -97,13 +97,10 @@ function App() {
 
   return (
     <div className="App">
-      <div className="App-header">
         <Header
           income={income}
           expense={expense}
         />
-      </div>
-      <div className="App-input">
         <Inputs
           concept={concept}
           setConcept={setConcept}
@@ -114,15 +111,12 @@ function App() {
           setOperation={setOperation}
           handleSubmit={handleSubmit}
         />
-      </div>
-      <div className="App-history">
         <History
           income={income}
           expense={expense}
           handleDelete={handleDelete}
           handleUpdate={handleUpdate}
         />
-      </div>
     </div>
   );
 }
