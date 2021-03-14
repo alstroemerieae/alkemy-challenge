@@ -3,11 +3,14 @@ import Header from './components/Header'
 import Inputs from './components/Inputs'
 import History from './components/History'
 import {useState} from 'react'
+import OperationDataService from "./services/OperationDataService";
+
 
 function App() {
   // Arrays
-  const [income, setIncome] = useState([])
-  const [expense, setExpense] = useState([])
+  const [operations, setOperations] = useState([]);
+  const incomesArray = operations.filter(item => item.operation === "income");
+  const expensesArray = operations.filter(item => item.operation === "expense");
 
   // Variables
   const [concept, setConcept] = useState("")
@@ -16,28 +19,47 @@ function App() {
   const [operation, setOperation] = useState("")
 
   // Functions
-  function checkLength(array) {
-    if (array.length === 10) {
-      array.shift()
-    }
-  }
+  // function checkLength(array) {
+  //   if (array.length === 10) {
+  //     array.shift()
+  //   }
+  // }
 
   // Handlers
   const handleSubmit = (e) => {
     e.preventDefault();
     // Check type of operation and create a new object in the corresponding array
     switch (operation) {
+      // Handle income type submit
       case "income":
         const newIncome = {
           concept: concept,
           amount: amount,
           date: date,
           operation: operation,
+          // IS this being passed on?
           id: `${date}_${concept}_${amount}_${operation}`
         }
-        checkLength(income);
-        setIncome([...income, newIncome])
+        // POST Request
+        OperationDataService.create(newIncome)
+        .then(response => {
+          // Where is this going? Where is operation being used?
+          setOperation({
+            id: response.data.id,
+            concept: response.data.concept,
+            amount: response.data.amount,
+            operation: response.data.operation,
+            date: response.data.date
+          });
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+        // checkLength(operations);
+        setOperations([...operations, newIncome])
         break;
+      // Handle expense type submit
       case "expense":
         const newExpense = {
           concept: concept,
@@ -46,9 +68,26 @@ function App() {
           operation: operation,
           id: `${date}_${concept}_${amount}_${operation}`
         }
-        checkLength(expense);
-        setExpense([...expense, newExpense])
+        // POST Request
+        OperationDataService.create(newExpense)
+        .then(response => {
+          // Where is this going? Where is operation being used?
+          setOperation({
+            id: response.data.id,
+            concept: response.data.concept,
+            amount: response.data.amount,
+            operation: response.data.operation,
+            date: response.data.date
+          });
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+        // checkLength(operations);
+        setOperations([...operations, newExpense])
         break;
+      // Handle default type (Error)
       default:
         window.alert("Error")
     }
@@ -59,16 +98,19 @@ function App() {
     // Set operation input to be the same as the previous operation
     setOperation(operation)
   }
-
+  
   const handleDelete = (array, itemID) => {
     // Create filtered array without the item that matches the itemID
     const filteredArray = array.filter(item => item.id !== itemID) // (!)
-    // Check which array to send the filtered array to
-    if (array === income) {
-      setIncome(filteredArray)
-    } else {
-      setExpense(filteredArray)
-    }
+    // DELETE Request
+    OperationDataService.remove(itemID)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+    setOperations(filteredArray)
   }
 
   const handleUpdate = (array, item) => {
@@ -82,24 +124,35 @@ function App() {
       amount: newAmount,
       date: newDate,
       operation: item.operation,
-      id: `${newDate}_${newConcept}_${newAmount}_${item.operation}`
+      id: item.id
     }
+    console.log(updateItem.id)
+    OperationDataService.update(updateItem.id, updateItem)
+    .then(response => {
+      setOperation({
+        id: response.data.id,
+        concept: response.data.concept,
+        amount: response.data.amount,
+        operation: response.data.operation,
+        date: response.data.date
+      });
+      console.log(response.data);
+    })
+    .catch(e => {
+      console.log(e);
+    });
     // Delete the current item from the array (so the updated item can take its place)
+    // Look for a cleaner solution (!)
     let indexToRemove = array.indexOf(item);
     const newArray = [...array.slice(0, indexToRemove), ...array.slice(indexToRemove + 1)]; // (!)
-    // Check which array to send the updated item to
-    if (array === income) {
-      setIncome([...newArray, updateItem])
-    } else {
-      setExpense([...newArray, updateItem])
-    }
+    setOperations([...newArray, updateItem])
   }
 
   return (
     <div className="App">
         <Header
-          income={income}
-          expense={expense}
+          incomesArray={incomesArray}
+          expensesArray={expensesArray}
         />
         <Inputs
           concept={concept}
@@ -112,8 +165,10 @@ function App() {
           handleSubmit={handleSubmit}
         />
         <History
-          income={income}
-          expense={expense}
+          operations={operations}
+          setOperations={setOperations}
+          incomesArray={incomesArray}
+          expensesArray={expensesArray}
           handleDelete={handleDelete}
           handleUpdate={handleUpdate}
         />

@@ -1,27 +1,51 @@
-const History = ({income, expense, handleDelete, handleUpdate}) => {
+// import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import OperationDataService from "../services/OperationDataService";
+// import { Link } from "react-router-dom";
+
+const History = ({operations, setOperations, incomesArray, expensesArray, handleUpdate, handleDelete}) => {
+
+  useEffect(() => {
+    retrieveOperations();
+  }, []);
+
+  const retrieveOperations = () => {
+    OperationDataService.getAll()
+      .then(response => {
+        setOperations(response.data);
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
+  console.log(incomesArray);
+  console.log(expensesArray);
+
   return (
     <div className="App-history">
       <div className="App-history__income">
         <h3 className="App-history__income--title">Ingresos</h3>
-        {income.map(incomeItem => (
-          <div className="App-history__income-item" key={incomeItem.id}>
-            <p className="App-history__income-item--date">{ incomeItem.date }</p>
-            <p className="App-history__income-item--amount">${ incomeItem.amount }</p>
-            <p className="App-history__income-item--concept">{ incomeItem.concept }</p>
-            <button className="btn-update" onClick={() => handleUpdate(income, incomeItem)}>Modificar</button>
-            <button className="btn-delete" onClick={() => handleDelete(income, incomeItem.id)}>Eliminar</button>
+        {incomesArray.map(operation => (
+          <div className="App-history__income-item" key={ operation.id }>
+            <p className="App-history__income-item--date">{ operation.date }</p>
+            <p className="App-history__income-item--amount">${ operation.amount }</p>
+            <p className="App-history__income-item--concept">{ operation.concept }</p>
+            <button className="btn-update" onClick={() => handleUpdate(operations, operation)}>Modificar</button>
+            <button className="btn-delete" onClick={() => handleDelete(operations, operation.id)}>Eliminar</button>
           </div>
         ))}
       </div>
       <div className="App-history__expense">
         <h3 className="App-history__expense--title">Egresos</h3>
-        {expense.map(expenseItem => (
-          <div className="App-history__expense-item" key={expenseItem.id}>
-            <p className="App-history__expense-item--date">{ expenseItem.date }</p>
-            <p className="App-history__expense-item--amount">${ expenseItem.amount }</p>
-            <p className="App-history__expense-item--concept">{ expenseItem.concept }</p>
-            <button className="btn-update" onClick={() => handleUpdate(expense, expenseItem)}>Modificar</button>
-            <button className="btn-delete" onClick={() => handleDelete(expense, expenseItem.id)}>Eliminar</button>
+        {expensesArray.map(operation => (
+          <div className="App-history__expense-item" key={ operation.id }>
+            <p className="App-history__expense-item--date">{ operation.date }</p>
+            <p className="App-history__expense-item--amount">${ operation.amount }</p>
+            <p className="App-history__expense-item--concept">{ operation.concept }</p>
+            <button className="btn-update" onClick={() => handleUpdate(operations, operation)}>Modificar</button>
+            <button className="btn-delete" onClick={() => handleDelete(operations, operation.id)}>Eliminar</button>
           </div>
         ))}
       </div>
