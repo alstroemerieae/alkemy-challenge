@@ -1,4 +1,4 @@
-# Alkemy Challenge
+# Alkemy Challenge (Frontend)
 
 ![Project image](project-preview.jpg)
 
@@ -23,10 +23,6 @@ npm install
 
 npm start
 ```
-
-## Demo
-It takes a while to load
-- [Link](https://modern-unexpected-cerise.glitch.me)
 
 ## Status
 
