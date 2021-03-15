@@ -18,32 +18,23 @@ function App() {
   const [date, setDate] = useState("")
   const [operation, setOperation] = useState("")
 
-  // Functions
-  // function checkLength(array) {
-  //   if (array.length === 10) {
-  //     array.shift()
-  //   }
-  // }
-
-  // Handlers
+  // This will handle the values being submitted to the backend
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Check type of operation and create a new object in the corresponding array
+    // Check type of operation (Income/Expense)
     switch (operation) {
-      // Handle income type submit
+      // Handle income operation type
       case "income":
         const newIncome = {
           concept: concept,
           amount: amount,
           date: date,
           operation: operation,
-          // IS this being passed on?
           id: `${date}_${concept}_${amount}_${operation}`
         }
         // POST Request
         OperationDataService.create(newIncome)
         .then(response => {
-          // Where is this going? Where is operation being used?
           setOperation({
             id: response.data.id,
             concept: response.data.concept,
@@ -56,10 +47,10 @@ function App() {
         .catch(e => {
           console.log(e);
         });
-        // checkLength(operations);
         setOperations([...operations, newIncome])
         break;
-      // Handle expense type submit
+      
+      // Handle expense operation type
       case "expense":
         const newExpense = {
           concept: concept,
@@ -71,7 +62,6 @@ function App() {
         // POST Request
         OperationDataService.create(newExpense)
         .then(response => {
-          // Where is this going? Where is operation being used?
           setOperation({
             id: response.data.id,
             concept: response.data.concept,
@@ -84,10 +74,9 @@ function App() {
         .catch(e => {
           console.log(e);
         });
-        // checkLength(operations);
         setOperations([...operations, newExpense])
         break;
-      // Handle default type (Error)
+      // Handle default (Error)
       default:
         window.alert("Error")
     }
@@ -100,8 +89,8 @@ function App() {
   }
   
   const handleDelete = (array, itemID) => {
-    // Create filtered array without the item that matches the itemID
-    const filteredArray = array.filter(item => item.id !== itemID) // (!)
+    // Create a filtered array without the items that match the itemID
+    const filteredArray = array.filter(item => item.id !== itemID)
     // DELETE Request
     OperationDataService.remove(itemID)
       .then(response => {
@@ -119,15 +108,15 @@ function App() {
     let newAmount = prompt("Please enter your the new amount:", `${item.amount}`);
     let newDate = prompt("Please enter your the new date:", `${item.date}`);
     // Create a new object with the prompt input values given
-    let updateItem = {
+    let updatedItem = {
       concept: newConcept,
       amount: newAmount,
       date: newDate,
       operation: item.operation,
       id: item.id
     }
-    console.log(updateItem.id)
-    OperationDataService.update(updateItem.id, updateItem)
+    // PUT Request
+    OperationDataService.update(updatedItem.id, updatedItem)
     .then(response => {
       setOperation({
         id: response.data.id,
@@ -145,7 +134,7 @@ function App() {
     // Look for a cleaner solution (!)
     let indexToRemove = array.indexOf(item);
     const newArray = [...array.slice(0, indexToRemove), ...array.slice(indexToRemove + 1)]; // (!)
-    setOperations([...newArray, updateItem])
+    setOperations([...newArray, updatedItem])
   }
 
   return (

@@ -1,6 +1,5 @@
 const Header = ({incomesArray, expensesArray}) => {
-  // Sum all the items amount value in each arrays
-
+  // Sum all the items amount value in each array
   let totalIncome = incomesArray.reduce((sum, current) => sum + parseInt(current.amount), 0); // (!)
   let totalExpense = expensesArray.reduce((sum, current) => sum + parseInt(current.amount), 0); // (!)
   let currentBalance = totalIncome - totalExpense;

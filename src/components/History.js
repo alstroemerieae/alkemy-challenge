@@ -1,7 +1,5 @@
-// import { useState, useEffect } from "react";
 import { useEffect } from "react";
 import OperationDataService from "../services/OperationDataService";
-// import { Link } from "react-router-dom";
 
 const History = ({operations, setOperations, incomesArray, expensesArray, handleUpdate, handleDelete}) => {
 
@@ -10,6 +8,7 @@ const History = ({operations, setOperations, incomesArray, expensesArray, handle
   }, []);
 
   const retrieveOperations = () => {
+    // GET Request
     OperationDataService.getAll()
       .then(response => {
         setOperations(response.data);
@@ -20,13 +19,11 @@ const History = ({operations, setOperations, incomesArray, expensesArray, handle
       });
   };
 
-  console.log(incomesArray);
-  console.log(expensesArray);
-
   return (
     <div className="App-history">
       <div className="App-history__income">
         <h3 className="App-history__income--title">Ingresos</h3>
+        {/* Display all income operations */}
         {incomesArray.map(operation => (
           <div className="App-history__income-item" key={ operation.id }>
             <p className="App-history__income-item--date">{ operation.date }</p>
@@ -39,6 +36,7 @@ const History = ({operations, setOperations, incomesArray, expensesArray, handle
       </div>
       <div className="App-history__expense">
         <h3 className="App-history__expense--title">Egresos</h3>
+        {/* Display all expense operations */}
         {expensesArray.map(operation => (
           <div className="App-history__expense-item" key={ operation.id }>
             <p className="App-history__expense-item--date">{ operation.date }</p>
