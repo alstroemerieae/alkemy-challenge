@@ -9,39 +9,32 @@ import OperationDataService from "./services/OperationDataService";
 function App() {
   // Arrays
   const [operations, setOperations] = useState([]);
-  const incomesArray = operations.filter(item => item.operation === "income");
-  const expensesArray = operations.filter(item => item.operation === "expense");
+  const incomesArray = operations.filter(item => item.type === "income");
+  const expensesArray = operations.filter(item => item.type === "expense");
 
   // Variables
   const [concept, setConcept] = useState("")
   const [amount, setAmount] = useState(0)
   const [date, setDate] = useState("")
-  const [operation, setOperation] = useState("")
+  const [type, setType] = useState("")
 
   // This will handle the values being submitted to the backend
   const handleSubmit = (e) => {
     e.preventDefault();
     // Check type of operation (Income/Expense)
-    switch (operation) {
-      // Handle income operation type
+    switch (type) {
+      // Handle incomes operation type
       case "income":
         const newIncome = {
           concept: concept,
           amount: amount,
           date: date,
-          operation: operation,
-          id: `${date}_${concept}_${amount}_${operation}`
+          type: type,
+          id: `${date}_${concept}_${amount}_${type}`
         }
         // POST Request
         OperationDataService.create(newIncome)
         .then(response => {
-          setOperation({
-            id: response.data.id,
-            concept: response.data.concept,
-            amount: response.data.amount,
-            operation: response.data.operation,
-            date: response.data.date
-          });
           console.log(response.data);
         })
         .catch(e => {
@@ -50,25 +43,18 @@ function App() {
         setOperations([...operations, newIncome])
         break;
       
-      // Handle expense operation type
+      // Handle expenses operation type
       case "expense":
         const newExpense = {
           concept: concept,
           amount: amount,
           date: date,
-          operation: operation,
-          id: `${date}_${concept}_${amount}_${operation}`
+          type: type,
+          id: `${date}_${concept}_${amount}_${type}`
         }
         // POST Request
         OperationDataService.create(newExpense)
         .then(response => {
-          setOperation({
-            id: response.data.id,
-            concept: response.data.concept,
-            amount: response.data.amount,
-            operation: response.data.operation,
-            date: response.data.date
-          });
           console.log(response.data);
         })
         .catch(e => {
@@ -84,8 +70,7 @@ function App() {
     setConcept("")
     setAmount("")
     setDate("")
-    // Set operation input to be the same as the previous operation
-    setOperation(operation)
+    setType("")
   }
   
   const handleDelete = (array, itemID) => {
@@ -112,19 +97,12 @@ function App() {
       concept: newConcept,
       amount: newAmount,
       date: newDate,
-      operation: item.operation,
+      type: item.type,
       id: item.id
     }
     // PUT Request
     OperationDataService.update(updatedItem.id, updatedItem)
     .then(response => {
-      setOperation({
-        id: response.data.id,
-        concept: response.data.concept,
-        amount: response.data.amount,
-        operation: response.data.operation,
-        date: response.data.date
-      });
       console.log(response.data);
     })
     .catch(e => {
@@ -150,7 +128,8 @@ function App() {
           setAmount={setAmount}
           date={date}
           setDate={setDate}
-          setOperation={setOperation}
+          type={type}
+          setType={setType}
           handleSubmit={handleSubmit}
         />
         <History

@@ -2,11 +2,7 @@ import { useEffect } from "react";
 import OperationDataService from "../services/OperationDataService";
 
 const History = ({operations, setOperations, incomesArray, expensesArray, handleUpdate, handleDelete}) => {
-
-  useEffect(() => {
-    retrieveOperations();
-  }, []);
-
+  // This will get and display all the created operations
   const retrieveOperations = () => {
     // GET Request
     OperationDataService.getAll()
@@ -18,6 +14,10 @@ const History = ({operations, setOperations, incomesArray, expensesArray, handle
         console.log(e);
       });
   };
+
+  useEffect(() => {
+    retrieveOperations();
+  }, []);
 
   return (
     <div className="App-history">

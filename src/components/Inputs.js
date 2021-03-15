@@ -1,4 +1,4 @@
-const Inputs = ({concept, setConcept, amount, setAmount, date, setDate, setOperation, handleSubmit}) => {
+const Inputs = ({concept, setConcept, amount, setAmount, date, setDate, type, setType, handleSubmit}) => {
   return (
     <form className="App-input">
       {/* Concept */}
@@ -19,7 +19,7 @@ const Inputs = ({concept, setConcept, amount, setAmount, date, setDate, setOpera
       {/* Income/Expense */}
       <div className="App-input__group">
         <label htmlFor="operation">Tipo</label>
-        <select name="operation" id="operation" onChange={e => setOperation(e.target.value)}>
+        <select name="operation" id="operation" value={type} onChange={e => setType(e.target.value)}>
           <option value="select">Seleccionar</option>
           <option value="income">Ingreso</option>
           <option value="expense">Egreso</option>
