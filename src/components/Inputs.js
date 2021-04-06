@@ -1,34 +1,22 @@
+import InputConcept from "./InputConcept"
+import InputAmount from "./InputAmount"
+import InputDate from "./InputDate"
+import InputType from "./InputType"
+import InputButton from "./InputButton"
+
 const Inputs = ({concept, setConcept, amount, setAmount, date, setDate, type, setType, handleSubmit}) => {
   return (
     <form className="App-input">
       {/* Concept */}
-      <div className="App-input__group">
-        <label htmlFor="concept">Concepto</label>
-        <input type="text" value={concept} onChange={e => setConcept(e.target.value)} placeholder="Ej. Supermercado"></input>
-      </div>
+      <InputConcept concept={concept} setConcept={setConcept}/>
       {/* Amount */}
-      <div className="App-input__group">
-        <label htmlFor="amount">Monto</label>
-        <input type="number" value={amount} onChange={e => setAmount(e.target.value)} ></input>
-      </div>
+      <InputAmount amount={amount} setAmount={setAmount}/>
       {/* Date */}
-      <div className="App-input__group">
-        <label htmlFor="date">Fecha</label>
-        <input type="date" value={date} onChange={e => setDate(e.target.value)}></input>
-      </div>
-      {/* Income/Expense */}
-      <div className="App-input__group">
-        <label htmlFor="operation">Tipo</label>
-        <select name="operation" id="operation" value={type} onChange={e => setType(e.target.value)}>
-          <option value="select">Seleccionar</option>
-          <option value="income">Ingreso</option>
-          <option value="expense">Egreso</option>
-        </select>
-      </div>
+      <InputDate date={date} setDate={setDate}/>
+      {/* Type (Income/Expense) */}
+      <InputType type={type} setType={setType}/>
       {/* Add button */}
-      <div className="App-input__group">
-        <button className="btn-add" onClick={handleSubmit}>Agregar</button>
-      </div>
+      <InputButton handleSubmit={handleSubmit}/>
     </form>
   );
 }
