@@ -1,3 +1,7 @@
+import HeaderBalanceItem from './HeaderBalanceItem';
+import HeaderIncomeItem from './HeaderIncomeItem';
+import HeaderExpenseItem from './HeaderExpenseItem';
+
 const Header = ({incomesArray, expensesArray}) => {
   // Sum all the items amount value in each array
   let totalIncome = incomesArray.reduce((sum, current) => sum + parseInt(current.amount), 0); // (!)
@@ -7,20 +11,11 @@ const Header = ({incomesArray, expensesArray}) => {
   return (
     <div className="App-header">
       {/* Current Balance */}
-      <div className="App-header__current-balance">
-        <div className="App-header__current-balance--title">Balance actual:</div>
-        <div className="App-header__current-balance--value">{currentBalance}</div>
-      </div>
+      <HeaderBalanceItem title="Balance actual:" value={currentBalance}/>
       {/* Total income */}
-      <div className="App-header__total-income">
-        <div className="App-header__total-income--title">Ingresos:</div>
-        <div className="App-header__total-income--value">+{totalIncome}</div>
-      </div>
+      <HeaderIncomeItem title="Ingresos:" value={totalIncome}/>
       {/* Total expense */}
-      <div className="App-header__total-expense">
-        <div className="App-header__total-expense--title">Egresos:</div>
-        <div className="App-header__total-expense--value">-{totalExpense}</div>
-      </div>
+      <HeaderExpenseItem title="Egresos:" value={totalExpense}/>
     </div>
   );
 }
