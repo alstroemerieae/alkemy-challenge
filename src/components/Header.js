@@ -2,12 +2,7 @@ import HeaderBalanceItem from './HeaderBalanceItem';
 import HeaderIncomeItem from './HeaderIncomeItem';
 import HeaderExpenseItem from './HeaderExpenseItem';
 
-const Header = ({incomesArray, expensesArray}) => {
-  // Sum all the items amount value in each array
-  let totalIncome = incomesArray.reduce((sum, current) => sum + parseInt(current.amount), 0); // (!)
-  let totalExpense = expensesArray.reduce((sum, current) => sum + parseInt(current.amount), 0); // (!)
-  let currentBalance = totalIncome - totalExpense;
-
+const Header = ({totalIncome, totalExpense, currentBalance}) => {
   return (
     <div className="App-header">
       {/* Current Balance */}

@@ -2,7 +2,7 @@ import './App.css';
 import Header from './components/Header'
 import Inputs from './components/Inputs'
 import History from './components/History'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import OperationDataService from "./services/OperationDataService";
 
 
@@ -17,6 +17,24 @@ function App() {
   const [amount, setAmount] = useState(0)
   const [date, setDate] = useState("")
   const [type, setType] = useState("")
+
+  // Sum all the items amount value in each array
+  let totalIncome = incomesArray.reduce((sum, current) => sum + parseInt(current.amount), 0); // (!)
+  let totalExpense = expensesArray.reduce((sum, current) => sum + parseInt(current.amount), 0); // (!)
+  let currentBalance = totalIncome - totalExpense;
+
+  // This will get and display all the created operations
+  const retrieveOperations = () => {
+    // GET Request
+    OperationDataService.getAll()
+      .then(response => {
+        setOperations(response.data);
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
 
   // This will handle the values being submitted to the backend
   const handleSubmit = (e) => {
@@ -115,11 +133,21 @@ function App() {
     setOperations([...newArray, updatedItem])
   }
 
+  // This will display and update all operations saved in the server
+  // Without this, deleted items in the client would still be stored into the server
+  useEffect(() => {
+    retrieveOperations();
+  }, []);
+
+
   return (
     <div className="App">
         <Header
           incomesArray={incomesArray}
           expensesArray={expensesArray}
+          totalIncome={totalIncome}
+          totalExpense={totalExpense}
+          currentBalance={currentBalance}
         />
         <Inputs
           concept={concept}
@@ -139,6 +167,7 @@ function App() {
           expensesArray={expensesArray}
           handleDelete={handleDelete}
           handleUpdate={handleUpdate}
+          retrieveOperations={retrieveOperations}
         />
     </div>
   );

@@ -1,26 +1,7 @@
-import { useEffect } from "react";
-import OperationDataService from "../services/OperationDataService";
 import HistoryIncome from "./HistoryIncome";
 import HistoryExpense from "./HistoryExpense";
 
-const History = ({operations, setOperations, incomesArray, expensesArray, handleUpdate, handleDelete}) => {
-  // This will get and display all the created operations
-  const retrieveOperations = () => {
-    // GET Request
-    OperationDataService.getAll()
-      .then(response => {
-        setOperations(response.data);
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
-
-  useEffect(() => {
-    retrieveOperations();
-  }, []);
-
+const History = ({operations, incomesArray, expensesArray, handleUpdate, handleDelete}) => {
   return (
     <div className="App-history">
       {/* Income History */}
