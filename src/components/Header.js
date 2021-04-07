@@ -1,8 +1,15 @@
+import { useContext } from "react";
+import { HeaderContext } from '../App.js'
+
 import HeaderBalanceItem from './HeaderBalanceItem';
 import HeaderIncomeItem from './HeaderIncomeItem';
 import HeaderExpenseItem from './HeaderExpenseItem';
 
-const Header = ({totalIncome, totalExpense, currentBalance}) => {
+const Header = () => {
+  const currentBalance = useContext(HeaderContext);
+  const totalIncome = useContext(HeaderContext);
+  const totalExpense = useContext(HeaderContext);
+
   return (
     <div className="App-header">
       {/* Current Balance */}

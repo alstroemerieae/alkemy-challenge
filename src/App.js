@@ -1,12 +1,14 @@
 import './App.css';
+import React, {useState, useEffect} from 'react'
 import Header from './components/Header'
 import Inputs from './components/Inputs'
 import History from './components/History'
-import {useState, useEffect} from 'react'
 import OperationDataService from "./services/OperationDataService";
 
+export const HeaderContext = React.createContext();
 
 function App() {
+
   // Arrays
   const [operations, setOperations] = useState([]);
   const incomesArray = operations.filter(item => item.type === "income");
@@ -142,13 +144,10 @@ function App() {
 
   return (
     <div className="App">
-        <Header
-          incomesArray={incomesArray}
-          expensesArray={expensesArray}
-          totalIncome={totalIncome}
-          totalExpense={totalExpense}
-          currentBalance={currentBalance}
-        />
+        {/* Check linter */}
+        <HeaderContext.Provider value={totalIncome, totalExpense, currentBalance}>
+          <Header />
+        </HeaderContext.Provider>
         <Inputs
           concept={concept}
           setConcept={setConcept}
