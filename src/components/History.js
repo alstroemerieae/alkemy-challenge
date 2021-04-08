@@ -1,13 +1,12 @@
 import HistoryIncome from "./HistoryIncome";
 import HistoryExpense from "./HistoryExpense";
 
-const History = ({operations, incomesArray, expensesArray, handleUpdate, handleDelete}) => {
+const History = () => {
+
   return (
     <div className="App-history">
-      {/* Income History */}
-      <HistoryIncome operations={operations} incomesArray={incomesArray} handleUpdate={handleUpdate} handleDelete={handleDelete}/>
-      {/* Expense History */}
-      <HistoryExpense operations={operations} expensesArray={expensesArray} handleUpdate={handleUpdate} handleDelete={handleDelete}/>
+      <HistoryIncome />
+      <HistoryExpense />
     </div>
   );
 }

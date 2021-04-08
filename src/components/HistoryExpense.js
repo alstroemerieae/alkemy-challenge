@@ -1,4 +1,9 @@
-const HistoryExpense = ({operations, expensesArray, handleUpdate, handleDelete}) => {
+import { useContext } from "react";
+import { HistoryContext } from '../App.js'
+
+const HistoryExpense = () => {
+  const {operations, expensesArray, handleUpdate, handleDelete} = useContext(HistoryContext);
+
   return (
   <div className="App-history__expense">
     <h3 className="App-history__expense--title">Egresos</h3>

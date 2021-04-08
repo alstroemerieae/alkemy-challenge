@@ -6,6 +6,7 @@ import History from './components/History'
 import OperationDataService from "./services/OperationDataService";
 
 export const HeaderContext = React.createContext();
+export const HistoryContext = React.createContext();
 
 function App() {
 
@@ -160,15 +161,9 @@ function App() {
           setType={setType}
           handleSubmit={handleSubmit}
         />
-        <History
-          operations={operations}
-          setOperations={setOperations}
-          incomesArray={incomesArray}
-          expensesArray={expensesArray}
-          handleDelete={handleDelete}
-          handleUpdate={handleUpdate}
-          retrieveOperations={retrieveOperations}
-        />
+        <HistoryContext.Provider value={{operations, incomesArray, expensesArray, handleUpdate, handleDelete}}>
+          <History/>
+        </HistoryContext.Provider>
     </div>
   );
 }

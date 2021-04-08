@@ -1,4 +1,9 @@
-const HistoryIncome = ({operations, incomesArray, handleUpdate, handleDelete}) => {
+import { useContext } from "react";
+import { HistoryContext } from '../App.js'
+
+const HistoryIncome = () => {
+  const {operations, incomesArray, handleUpdate, handleDelete} = useContext(HistoryContext);
+
   return (
   <div className="App-history__income">
     <h3 className="App-history__income--title">Ingresos</h3>
