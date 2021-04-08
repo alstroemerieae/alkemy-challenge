@@ -4,19 +4,19 @@ import InputDate from "./InputDate"
 import InputType from "./InputType"
 import InputButton from "./InputButton"
 
-const Inputs = ({concept, setConcept, amount, setAmount, date, setDate, type, setType, handleSubmit}) => {
+const Inputs = () => {
   return (
     <form className="App-input">
       {/* Concept */}
-      <InputConcept concept={concept} setConcept={setConcept}/>
+      <InputConcept />
       {/* Amount */}
-      <InputAmount amount={amount} setAmount={setAmount}/>
+      <InputAmount />
       {/* Date */}
-      <InputDate date={date} setDate={setDate}/>
+      <InputDate />
       {/* Type (Income/Expense) */}
-      <InputType type={type} setType={setType}/>
+      <InputType />
       {/* Add button */}
-      <InputButton handleSubmit={handleSubmit}/>
+      <InputButton />
     </form>
   );
 }

@@ -1,4 +1,9 @@
-const InputType = ({type, setType}) => {
+import { useContext } from "react";
+import { InputsContext } from '../App.js'
+
+const InputType = () => {
+  const {type, setType} = useContext(InputsContext);
+
   return (
   <div className="App-input__group">
     <label htmlFor="operation">Tipo</label>

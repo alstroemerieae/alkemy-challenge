@@ -1,4 +1,9 @@
-const InputDate = ({date, setDate}) => {
+import { useContext } from "react";
+import { InputsContext } from '../App.js'
+
+const InputDate = () => {
+  const {date, setDate} = useContext(InputsContext);
+
   return (
   <div className="App-input__group">
     <label htmlFor="date">Fecha</label>

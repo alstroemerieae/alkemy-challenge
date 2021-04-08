@@ -6,6 +6,7 @@ import History from './components/History'
 import OperationDataService from "./services/OperationDataService";
 
 export const HeaderContext = React.createContext();
+export const InputsContext = React.createContext();
 export const HistoryContext = React.createContext();
 
 function App() {
@@ -145,22 +146,15 @@ function App() {
 
   return (
     <div className="App">
-        {/* Set variables like this with useContext like this inside Header */}
-        {/* const {currentBalance, totalIncome, totalExpense} = useContext(HeaderContext); */}
+        {/* Header section */}
         <HeaderContext.Provider value={{totalIncome, totalExpense, currentBalance}}>
           <Header />
         </HeaderContext.Provider>
-        <Inputs
-          concept={concept}
-          setConcept={setConcept}
-          amount={amount}
-          setAmount={setAmount}
-          date={date}
-          setDate={setDate}
-          type={type}
-          setType={setType}
-          handleSubmit={handleSubmit}
-        />
+        {/* Inputs section */}
+        <InputsContext.Provider value={{concept, setConcept, amount, setAmount, date, setDate, type, setType, handleSubmit}}>
+          <Inputs />
+        </InputsContext.Provider>
+        {/* History section */}
         <HistoryContext.Provider value={{operations, incomesArray, expensesArray, handleUpdate, handleDelete}}>
           <History/>
         </HistoryContext.Provider>

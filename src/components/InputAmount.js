@@ -1,4 +1,9 @@
-const InputAmount = ({amount, setAmount}) => {
+import { useContext } from "react";
+import { InputsContext } from '../App.js'
+
+const InputAmount = () => {
+  const {amount, setAmount} = useContext(InputsContext);
+
   return (
   <div className="App-input__group">
     <label htmlFor="amount">Monto</label>

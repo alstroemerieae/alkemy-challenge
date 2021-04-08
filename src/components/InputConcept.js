@@ -1,4 +1,9 @@
-const InputConcept = ({concept, setConcept}) => {
+import { useContext } from "react";
+import { InputsContext } from '../App.js'
+
+const InputConcept = () => {
+  const {concept, setConcept} = useContext(InputsContext);
+  
   return (
   <div className="App-input__group">
     <label htmlFor="concept">Concepto</label>
