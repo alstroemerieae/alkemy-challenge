@@ -6,9 +6,7 @@ import HeaderIncomeItem from './HeaderIncomeItem';
 import HeaderExpenseItem from './HeaderExpenseItem';
 
 const Header = () => {
-  const currentBalance = useContext(HeaderContext);
-  const totalIncome = useContext(HeaderContext);
-  const totalExpense = useContext(HeaderContext);
+  const {currentBalance, totalIncome, totalExpense} = useContext(HeaderContext);
 
   return (
     <div className="App-header">

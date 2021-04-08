@@ -144,8 +144,9 @@ function App() {
 
   return (
     <div className="App">
-        {/* Check linter */}
-        <HeaderContext.Provider value={totalIncome, totalExpense, currentBalance}>
+        {/* Set variables like this with useContext like this inside Header */}
+        {/* const {currentBalance, totalIncome, totalExpense} = useContext(HeaderContext); */}
+        <HeaderContext.Provider value={{totalIncome, totalExpense, currentBalance}}>
           <Header />
         </HeaderContext.Provider>
         <Inputs
