@@ -6,7 +6,14 @@ import HeaderIncomeItem from './HeaderIncomeItem';
 import HeaderExpenseItem from './HeaderExpenseItem';
 
 const Header = () => {
-  const {currentBalance, totalIncome, totalExpense} = useContext(HeaderContext);
+  const {incomesArray, expensesArray} = useContext(HeaderContext);
+
+  // Sum of all the income items amount
+  let totalIncome = incomesArray.reduce((sum, current) => sum + parseInt(current.amount), 0); // (!)
+  // Sum of all the expense items amount
+  let totalExpense = expensesArray.reduce((sum, current) => sum + parseInt(current.amount), 0); // (!)
+  // Result of the income minus the expense
+  let currentBalance = totalIncome - totalExpense;
 
   return (
     <div className="App-header">

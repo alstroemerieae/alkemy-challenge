@@ -22,12 +22,7 @@ function App() {
   const [date, setDate] = useState("")
   const [type, setType] = useState("")
 
-  // Sum all the items amount value in each array
-  let totalIncome = incomesArray.reduce((sum, current) => sum + parseInt(current.amount), 0); // (!)
-  let totalExpense = expensesArray.reduce((sum, current) => sum + parseInt(current.amount), 0); // (!)
-  let currentBalance = totalIncome - totalExpense;
-
-  // This will get and display all the created operations
+  // This will get and display all the operations saved in the server
   const retrieveOperations = () => {
     // GET Request
     OperationDataService.getAll()
@@ -40,7 +35,7 @@ function App() {
       });
   };
 
-  // This will handle the values being submitted to the backend
+  // This will handle the values being submitted to the server
   const handleSubmit = (e) => {
     e.preventDefault();
     // Check type of operation (Income/Expense)
@@ -94,7 +89,8 @@ function App() {
     setDate("")
     setType("")
   }
-  
+
+  // This will handle the values being deleted to the server
   const handleDelete = (array, itemID) => {
     // Create a filtered array without the items that match the itemID
     const filteredArray = array.filter(item => item.id !== itemID)
@@ -109,6 +105,7 @@ function App() {
     setOperations(filteredArray)
   }
 
+  // This will handle the values being updated to the server
   const handleUpdate = (array, item) => {
     // Prompt input values
     let newConcept = prompt("Please enter your the new concept:", `${item.concept}`);
@@ -147,7 +144,7 @@ function App() {
   return (
     <div className="App">
         {/* Header section */}
-        <HeaderContext.Provider value={{totalIncome, totalExpense, currentBalance}}>
+        <HeaderContext.Provider value={{incomesArray, expensesArray}}>
           <Header />
         </HeaderContext.Provider>
         {/* Inputs section */}
