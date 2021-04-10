@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { InputsContext } from '../App.js'
+import OperationContext from "../context/OperationContext";
 
 const InputConcept = () => {
-  const {concept, setConcept} = useContext(InputsContext);
+  const { concept, setConcept } = useContext(OperationContext);
   
   return (
   <div className="App-input__group">

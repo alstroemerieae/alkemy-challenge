@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import { InputsContext } from '../App.js'
+import OperationContext from "../context/OperationContext";
 
 const InputButton = () => {
-  const {handleSubmit} = useContext(InputsContext);
+  const { HandleSubmit } = useContext(OperationContext);
 
   return (
   <div className="App-input__group">
-    <button className="btn-add" onClick={handleSubmit}>Agregar</button>
+    <button className="btn-add" onClick={ HandleSubmit }>Agregar</button>
   </div>
   );
 }

@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { HistoryContext } from '../App.js'
+import OperationContext from "../context/OperationContext";
 
 const HistoryExpense = () => {
-  const {operations, expensesArray, handleUpdate, handleDelete} = useContext(HistoryContext);
+  const { operations, expensesArray, HandleUpdate, HandleDelete } = useContext(OperationContext);
 
   return (
   <div className="App-history__expense">
@@ -13,8 +13,8 @@ const HistoryExpense = () => {
         <p className="App-history__expense-item--date">{ operation.date }</p>
         <p className="App-history__expense-item--amount">${ operation.amount }</p>
         <p className="App-history__expense-item--concept">{ operation.concept }</p>
-        <button className="btn-update" onClick={() => handleUpdate(operations, operation)}>Modificar</button>
-        <button className="btn-delete" onClick={() => handleDelete(operations, operation.id)}>Eliminar</button>
+        <button className="btn-update" onClick={() => HandleUpdate(operations, operation)}>Modificar</button>
+        <button className="btn-delete" onClick={() => HandleDelete(operations, operation.id)}>Eliminar</button>
       </div>
     ))}
   </div>

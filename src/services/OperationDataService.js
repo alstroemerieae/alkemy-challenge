@@ -20,10 +20,12 @@ const remove = id => {
   return http.delete(`/operations/${id}`);
 };
 
-export default {
+const httpMethods = {
   getAll,
   get,
   create,
   update,
   remove
-};
+}
+
+export default httpMethods
