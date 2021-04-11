@@ -4,7 +4,7 @@
 - [Repo](https://github.com/alstroemerieae/alkemy-challenge-backend)
 
 ## Preview 
-![Project image](project-preview.jpg)
+![Project image](./public/media/project-preview.jpg)
 
 ## Technologies
 
